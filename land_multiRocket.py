@@ -618,8 +618,8 @@ class TwoRocketLander(gym.Env):
 			self.firetrans1 = rendering.Transform(translation=(0, -ENGINE_HEIGHT))
 			self.fire1.add_attr(self.firescale1)
 			self.fire1.add_attr(self.firetrans1)
-			self.fire.add_attr(self.enginetrans1)
-			self.fire.add_attr(self.rockettrans1)
+			self.fire1.add_attr(self.enginetrans1)
+			self.fire1.add_attr(self.rockettrans1)
 
 
 
