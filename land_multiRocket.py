@@ -394,7 +394,7 @@ class TwoRocketLander(gym.Env):
 
 		self.lander.angularVelocity = (1 + INITIAL_RANDOM) * np.random.uniform(-1, 1)
 
-		# self.drawlist = self.legs + [self.water] + [self.ship] + self.containers + [self.lander]
+		self.drawlist = self.legs + [self.water] + [self.ship] + self.containers + [self.lander]
 
 
 		self.lander1.linearVelocity = (
@@ -403,7 +403,7 @@ class TwoRocketLander(gym.Env):
 
 		self.lander1.angularVelocity = (1 + INITIAL_RANDOM) * np.random.uniform(-1, 1)
 
-		self.drawlist1 = self.legs + self.legs1 + [self.water] + [self.ship] + self.containers + [self.lander1]+ [self.lander]
+		self.drawlist1 = self.legs1 + [self.water] + [self.ship] + self.containers + [self.lander1]
 
 		if CONTINUOUS:
 			return self.step([0, 0, 0])[0]
@@ -725,14 +725,14 @@ class TwoRocketLander(gym.Env):
 			self.viewer.add_onetime(g)
 			self.viewer.add_onetime(g1)
 
-		for obj in self.drawlist1:
-			for f in obj.fixtures:
+		for obj,obj1 in zip(self.drawlist,self.drawlist1):
+			for f,f1 in zip(obj.fixtures,obj1.fixtures):
 				trans = f.body.transform
-				# trans1 = f1.body.transform
+				trans1 = f1.body.transform
 				path = [trans * v for v in f.shape.vertices]
-				# path1 = [trans1 * n for n in f1.shape.vertices]
+				path1 = [trans1 * n for n in f1.shape.vertices]
 				self.viewer.draw_polygon(path, color=obj.color1)
-				# self.viewer.draw_polygon(path1, color=obj.color1)
+				self.viewer.draw_polygon(path1, color=obj.color1)
 
 
 		for l in zip(self.legs, [-1, 1]):
